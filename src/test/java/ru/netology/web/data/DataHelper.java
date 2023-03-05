@@ -3,20 +3,25 @@ package ru.netology.web.data;
 import lombok.Value;
 
 public class DataHelper {
-  private DataHelper() {}
+  private DataHelper() {
+  }
 
   @Value
   public static class AuthInfo {
     private String login;
     private String password;
+    private String number;
+    private String balance;
+
+
   }
 
   public static AuthInfo getAuthInfo() {
-    return new AuthInfo("vasya", "qwerty123");
+    return new AuthInfo("vasya", "qwerty123", "5559 0000 0000 0001", "10 000 RUB");
   }
 
   public static AuthInfo getOtherAuthInfo(AuthInfo original) {
-    return new AuthInfo("petya", "123qwerty");
+    return new AuthInfo("petya", "123qwerty", "5559 0000 0000 0002", "10 000 RUB");
   }
 
   @Value
@@ -28,3 +33,4 @@ public class DataHelper {
     return new VerificationCode("12345");
   }
 }
+
