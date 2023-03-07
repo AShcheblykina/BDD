@@ -29,7 +29,7 @@ class MoneyTransferTest {
   }
  // @Test
   //void shouldTransferMoneyVisible() {
-  / open("http://localhost:9999");
+  // open("http://localhost:9999");
   // var DashboardPage = new DashboardPage();
 
 
