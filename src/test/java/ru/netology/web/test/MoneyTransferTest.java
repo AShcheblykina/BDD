@@ -13,7 +13,6 @@ class MoneyTransferTest {
   void shouldTransferMoneyBetweenOwnCardsV2() {
     open("http://localhost:9999");
     var loginPage = new LoginPageV2();
-   // var loginPage = open("http://localhost:9999", LoginPageV2.class);
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
     var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
@@ -27,12 +26,5 @@ class MoneyTransferTest {
     var sum = ("500");
     var card = authInfo.getNumber();
   }
- // @Test
-  //void shouldTransferMoneyVisible() {
-  // open("http://localhost:9999");
-  // var DashboardPage = new DashboardPage();
-
-
- // }
 }
 
