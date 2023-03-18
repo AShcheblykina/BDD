@@ -20,23 +20,24 @@ class MoneyTransferTest {
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        var dashboardPage = verificationPage.validVerify(verificationCode);
-        var firstCardNumber = getFirstCardNumber();
-        var secondCardNumber = getSecondCardNumber();
-        var firstCardBalance = dashboardPage.getCardBalance(firstCardNumber);
-        var secondCardBalance = dashboardPage.getCardBalance(secondCardNumber);
-        var amount = generateValidAmount(firstCardBalance);
+        var dashboardPage = verificationPage.validVerify(verificationCode);;
+        var firstCardInfo = getFirstCardInfo();
+        var secondCardInfo = getSecondCardInfo();
+        var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
+        var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+        var amount = generateAmount(firstCardBalance);
         var expectedBalanceFirstCard = firstCardBalance - amount;
         var expectedBalanceSecondCard = secondCardBalance + amount;
-        var replenishmentPage = dashboardPage.selectCardToReplenishment(secondCardNumber);
-        dashboardPage = replenishmentPage.shouldTransfer(String.valueOf(amount), firstCardNumber);
-        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardNumber);
-        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardNumber);
+        var cardTopUpPage = dashboardPage.selectCardToTransfer(secondCardInfo);
+        dashboardPage = cardTopUpPage.shouldTransfer(String.valueOf(amount), firstCardInfo);
+        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
         Assertions.assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         Assertions.assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
+    }
 
     }
-}
+
 
 
 

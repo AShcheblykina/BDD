@@ -33,10 +33,6 @@ public class ReplenishmentPage {
         transfer.click();
     }
 
-
-    public void FindMessage(String expectedText) {
-        message.shouldHave(exactText(expectedText), Duration.ofSeconds(15)).shouldBe(visible);
-    }
 }
 
 

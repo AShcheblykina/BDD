@@ -23,16 +23,19 @@ public class DashboardPage {
   public int getCardBalance(DataHelper.CardInfo cardInfo) {
     var text = cards.findBy(text(cardInfo.getCardNumber().substring(15))).getText();
     return extractBalance(text);
-}
-public ReplenishmentPage selectCardToReplenishment(DataHelper.CardInfo cardInfo){
+  }
+
+  public ReplenishmentPage selectCardToTransfer(DataHelper.CardInfo cardInfo) {
     cards.findBy(text(cardInfo.getCardNumber().substring(15))).$("button").click();
     return new ReplenishmentPage();
+  }
 
-}
   private int extractBalance(String text) {
     var start = text.indexOf(balanceStart);
     var finish = text.indexOf(balanceFinish);
     var value = text.substring(start + balanceStart.length(), finish);
     return Integer.parseInt(value);
   }
+
+
 }
