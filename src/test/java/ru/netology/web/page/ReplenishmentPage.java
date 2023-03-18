@@ -12,11 +12,10 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ReplenishmentPage {
-    private SelenideElement transfer = $("[data-test-id=action-transfer]");
-    private SelenideElement amount = $x("//span[contains(text(),'Сумма')]");
-    private SelenideElement card = $("[data-test-id=from]");
+    private SelenideElement transfer = $("[data-test-id='action-transfer']");
+    private SelenideElement amount = $("[data-test-id='amount'] input");
+    private SelenideElement card = $("[data-test-id='from'] input");
     private SelenideElement replenishment = $x("//h1");
-    private SelenideElement message = $("[data-test-id=error-message]");
 
     public ReplenishmentPage() {
         replenishment.shouldBe(visible);

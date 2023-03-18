@@ -28,8 +28,8 @@ class MoneyTransferTest {
         var amount = generateAmount(firstCardBalance);
         var expectedBalanceFirstCard = firstCardBalance - amount;
         var expectedBalanceSecondCard = secondCardBalance + amount;
-        var cardTopUpPage = dashboardPage.selectCardToTransfer(secondCardInfo);
-        dashboardPage = cardTopUpPage.shouldTransfer(String.valueOf(amount), firstCardInfo);
+        var replenishmentPage = dashboardPage.selectCardToTransfer(secondCardInfo);
+        dashboardPage = replenishmentPage.shouldTransfer(String.valueOf(amount), firstCardInfo);
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
         Assertions.assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
