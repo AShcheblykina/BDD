@@ -45,5 +45,8 @@ public class DataHelper {
     public static int generateAmount(int balance) {
         return new Random().nextInt(balance) + 1;
     }
+public static int generateAmountAboveMax(int balance) {
+    return new Random().nextInt(balance) + 10_000;
 
+}
 }

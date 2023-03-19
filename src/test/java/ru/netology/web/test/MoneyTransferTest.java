@@ -9,6 +9,7 @@ import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.web.data.DataHelper.*;
 
 class MoneyTransferTest {
@@ -20,7 +21,7 @@ class MoneyTransferTest {
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        var dashboardPage = verificationPage.validVerify(verificationCode);;
+        var dashboardPage = verificationPage.validVerify(verificationCode);
         var firstCardInfo = getFirstCardInfo();
         var secondCardInfo = getSecondCardInfo();
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
@@ -32,9 +33,30 @@ class MoneyTransferTest {
         dashboardPage = replenishmentPage.shouldTransfer(String.valueOf(amount), firstCardInfo);
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
-        Assertions.assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
-        Assertions.assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
+        assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
+        assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
+     @Test
+    void shouldTransferMoneyAboveMaximumBalance() {
+         open("http://localhost:9999");
+         var loginPage = new LoginPage();
+         var authInfo = DataHelper.getAuthInfo();
+         var verificationPage = loginPage.validLogin(authInfo);
+         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
+         var dashboardPage = verificationPage.validVerify(verificationCode);
+         var firstCardInfo = getFirstCardInfo();
+         var secondCardInfo = getSecondCardInfo();
+         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
+         var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+         var amount = generateAmountAboveMax(firstCardBalance);
+         var replenishmentPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+         replenishmentPage.makeReplenishment(String.valueOf(amount),secondCardInfo);
+         replenishmentPage.findErrorMessage("Не хватает денег для перевода");
+         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+         assertEquals(firstCardBalance, actualBalanceFirstCard);
+         assertEquals(secondCardBalance, actualBalanceSecondCard);
+     }
 
     }
 
