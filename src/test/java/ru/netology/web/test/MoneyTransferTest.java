@@ -37,7 +37,7 @@ class MoneyTransferTest {
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
      @Test
-    void shouldTransferMoneyAboveMaximumBalance() {
+    void shouldTransferAboveMaximumBalance() {
          open("http://localhost:9999");
          var loginPage = new LoginPage();
          var authInfo = DataHelper.getAuthInfo();
